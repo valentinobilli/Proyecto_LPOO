@@ -1,7 +1,15 @@
 #include <iostream>
 using namespace std;
 
-int fila, columna, tablero[8][10];
+int fila, columna, tablero[8][10] = {
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
 bool verificacion (){
 	for (columna=0; columna<10; columna++){
