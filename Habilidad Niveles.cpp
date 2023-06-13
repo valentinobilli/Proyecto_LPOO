@@ -1,4 +1,5 @@
 #include <iostream>
+#include "main.cpp"
 using namespace std;
 
 int Nivel = 0;
