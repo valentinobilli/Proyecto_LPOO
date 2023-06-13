@@ -1,0 +1,171 @@
+#include <iostream>
+#include <time.h>
+#include <cstdlib>
+#include <conio.h>
+#include <stdio.h>
+#include <windows.h>
+#define color SetConsoleTextAttribute
+
+using namespace std;
+
+HANDLE hconsole = GetStdHandle( STD_OUTPUT_HANDLE );
+
+int aleatorio()
+{
+	return (1 + rand() % 5) ;
+}
+
+void confirmacion(int tablero, bool flag, int &score)
+{
+	for(int i=0 ; i<10 ; i++)
+	{
+		for(int j=0 ; j<10 ; j++)
+		{
+			
+		}
+	}
+}
+
+void mostrar_tablero(int tablero[10][10], int cursi, int cursj, int cursi1, int cursj1)
+{
+	cout << "+---------------------+" << endl;
+	for(int i=0; i<10 ; i++)
+	{
+		cout << "|";
+		for(int j=0 ; j<10 ; j++)
+		{	
+			color(hconsole, 15);
+			cout << " ";
+			
+			if(i==cursi1 && j==cursj1) color(hconsole, 31);
+			else if(i==cursi && j==cursj) color(hconsole, 240);
+			else color(hconsole, 15);
+			
+			if(tablero[i][j]==1) cout << "@";
+			else if(tablero[i][j]==2) cout << "#";
+			else if(tablero[i][j]==3) cout << "X";
+			else if(tablero[i][j]==4) cout << "H";
+			else if(tablero[i][j]==5) cout << "C";
+			else cout << "0";
+		}
+		color(hconsole, 15);
+		cout << " |" << endl;
+		if(i!=9) cout << "|                     |" << endl;
+	}
+	cout << "+---------------------+" << endl << endl;
+}
+
+void vaciar_tablero(int tablero[10][10])
+{
+	for(int i=0; i<10 ; i++)
+	{
+		for(int j=0; j<10 ; j++)
+		{
+			tablero[i][j] = 0;
+		}
+	}
+}
+
+void cargar_tablero(int tablero[10][10])
+{
+	for(int i=0; i<10 ; i++)
+	{
+		for(int j=0 ; j<10 ; j++)
+		{
+			if(tablero[i][j] == 0) tablero[i][j] = aleatorio();
+		}
+	}
+}
+
+int main()
+{
+	char tecla, tecla1;
+	int cursi, cursj, cursi1, cursj1, aux, score;
+	bool flag;
+	
+	srand(time(NULL));
+	
+	int tablero[10][10];
+	vaciar_tablero(tablero);
+	cargar_tablero(tablero);
+	
+	confirmacion(tablero, 0, score);
+	
+	while(1)
+	{
+		cursi1 = cursj1 = -1;
+		system("cls");
+		mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1);
+		
+		tecla = getch();
+		
+		switch(tecla)
+		{
+			case 72://FLECHA DE ARRIBA
+				if(cursi==0) cursi = 9;
+				else cursi --;
+				break;
+				
+			case 80://FLECHA DE ABAJO
+				if(cursi==9) cursi = 0;
+				else cursi ++;
+				break;
+				
+			case 75://FLECHA DE LA IZQUIERDA
+				if(cursj==0) cursj == 9;
+				else cursj --;
+				break;
+			
+			case 77://FLECHA DE LA DERECHA
+				if(cursj==9) cursj == 0;
+				else cursj ++;
+				break;
+				
+			case 13://ENTER
+				tecla1=10;
+				cursi1 = cursi;
+				cursj1 = cursj;
+				while(tecla1!=13)
+				{
+					system("cls");
+					mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1);
+				
+					tecla1 = getch();
+				
+					switch(tecla1)	//HABIENDO SELECCIONADO UNA FICHA TOCA SELECCIONAR LA SEGUNDA
+					{
+						case 72://FLECHA DE ARRIBA
+							if(cursi1==0) cursi1 = 9;
+							else cursi1 --;
+							break;
+					
+						case 80://FLECHA DE ABAJO
+							if(cursi1==9) cursi1 = 0;
+							else cursi1 ++;
+							break;
+				
+						case 75://FLECHA DE LA IZQUIERDA
+							if(cursj1==0) cursj1 = 9;
+							else cursj1 --;
+							break;
+			
+						case 77://FLECHA DE LA DERECHA
+							if(cursj1==9) cursj1 = 0;
+							else cursj1 ++;
+							break;
+							
+						case 13://ENTER
+							aux = tablero[cursi1][cursj1];
+							tablero[cursi1][cursj1] = tablero[cursi][cursj];
+							tablero[cursi][cursj] = aux;
+							break;
+					}
+				}
+				
+				break;
+			
+			default:
+				break;
+		}
+	}
+}
