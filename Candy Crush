@@ -1,116 +1,12 @@
 #include <iostream>
-#include <time.h>
 #include <cstdlib>
+#include <time.h>
 #include <conio.h>
+#include "Tablero.cpp"
 #include <stdio.h>
 #include <windows.h>
-#define color SetConsoleTextAttribute
 
 using namespace std;
-
-HANDLE hconsole = GetStdHandle( STD_OUTPUT_HANDLE );
-
-int aleatorio()
-{
-	return (1 + rand() % 5) ;
-}
-
-void crush_de_candys(int tablero[10][10])
-{
-	bool flag=0;
-	int counter, aux;
-	
-	/*Destruccion de caramelos en horizontal ---*/
-	while(flag)
-	{
-		for(int i=0 ; i<10 ; i++)
-		{
-			for(int j=0 ; j<10 ; j++)
-			{
-				if(j==0)
-				{
-					count = 0;
-					aux = tablero[i][j];
-				}
-				else if(tablero[i][j] != aux)
-				{
-					if(count => 3)
-					{
-						for(int k=count; k<0 ; k++)
-						{
-							tablero[i][j-k] = 0;
-						}	
-					}
-					count = 0;
-					aux = tablero[i][j];
-				}
-				else
-				{
-					count ++;
-				}
-			}
-		}
-	}
-	
-	while(flag)
-	{
-		
-	}
-	
-	
-}
-
-void mostrar_tablero(int tablero[10][10], int cursi, int cursj, int cursi1, int cursj1, int movimientos)
-{
-	printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n", 201, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 187);
-	for(int i=0; i<10 ; i++)
-	{
-		printf("%c", 186);
-		for(int j=0 ; j<10 ; j++)
-		{	
-			color(hconsole, 15);
-			cout << " ";
-			
-			if(i==cursi1 && j==cursj1) color(hconsole, 31);
-			else if(i==cursi && j==cursj) color(hconsole, 240);
-			else color(hconsole, 15);
-			
-			if(tablero[i][j]==1) cout << "@";
-			else if(tablero[i][j]==2) cout << "#";
-			else if(tablero[i][j]==3) cout << "X";
-			else if(tablero[i][j]==4) cout << "H";
-			else if(tablero[i][j]==5) cout << "C";
-			else cout << "0";
-		}
-		color(hconsole, 15);
-		printf(" %c\n", 186);
-		if(i!=9) printf("%c                     %c\n", 186, 186);
-	}
-	printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n\n", 200, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 188);
-	cout << "Movimientos: " << movimientos << endl << endl;
-}
-
-void vaciar_tablero(int tablero[10][10])
-{
-	for(int i=0; i<10 ; i++)
-	{
-		for(int j=0; j<10 ; j++)
-		{
-			tablero[i][j] = 0;
-		}
-	}
-}
-
-void cargar_tablero(int tablero[10][10])
-{
-	for(int i=0; i<10 ; i++)
-	{
-		for(int j=0 ; j<10 ; j++)
-		{
-			if(tablero[i][j] == 0) tablero[i][j] = aleatorio();
-		}
-	}
-}
 
 int main()
 {
@@ -121,14 +17,15 @@ int main()
 	srand(time(NULL));
 	
 	int tablero[10][10];
-	vaciar_tablero(tablero);
-	cargar_tablero(tablero);
+	vaciar(tablero);
 	
 	while(1)
 	{
+		romperCaramelos(tablero, score);
+		cargar(tablero);
 		cursi1 = cursj1 = -1;
 		system("cls");
-		mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1, movimientos);
+		mostrar(tablero, cursi, cursj, cursi1, cursj1, movimientos, score);
 		
 		tecla = getch();
 		
@@ -161,8 +58,8 @@ int main()
 				while(tecla1!=13)
 				{
 					system("cls");
-					mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1, movimientos);
-				
+					mostrar(tablero, cursi, cursj, cursi1, cursj1, movimientos, score);
+					
 					tecla1 = getch();
 				
 					switch(tecla1)	//HABIENDO SELECCIONADO UNA FICHA TOCA SELECCIONAR LA SEGUNDA
@@ -199,6 +96,3 @@ int main()
 		}
 	}
 }
-
-
-
