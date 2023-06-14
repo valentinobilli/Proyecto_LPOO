@@ -15,23 +15,57 @@ int aleatorio()
 	return (1 + rand() % 5) ;
 }
 
-void confirmacion(int tablero, bool flag, int &score)
+void crush_de_candys(int tablero[10][10])
 {
-	for(int i=0 ; i<10 ; i++)
+	bool flag=0;
+	int counter, aux;
+	
+	/*Destruccion de caramelos en horizontal ---*/
+	while(flag)
 	{
-		for(int j=0 ; j<10 ; j++)
+		for(int i=0 ; i<10 ; i++)
 		{
-			
+			for(int j=0 ; j<10 ; j++)
+			{
+				if(j==0)
+				{
+					count = 0;
+					aux = tablero[i][j];
+				}
+				else if(tablero[i][j] != aux)
+				{
+					if(count => 3)
+					{
+						for(int k=count; k<0 ; k++)
+						{
+							tablero[i][j-k] = 0;
+						}	
+					}
+					count = 0;
+					aux = tablero[i][j];
+				}
+				else
+				{
+					count ++;
+				}
+			}
 		}
 	}
+	
+	while(flag)
+	{
+		
+	}
+	
+	
 }
 
-void mostrar_tablero(int tablero[10][10], int cursi, int cursj, int cursi1, int cursj1)
+void mostrar_tablero(int tablero[10][10], int cursi, int cursj, int cursi1, int cursj1, int movimientos)
 {
-	cout << "+---------------------+" << endl;
+	printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n", 201, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 187);
 	for(int i=0; i<10 ; i++)
 	{
-		cout << "|";
+		printf("%c", 186);
 		for(int j=0 ; j<10 ; j++)
 		{	
 			color(hconsole, 15);
@@ -49,10 +83,11 @@ void mostrar_tablero(int tablero[10][10], int cursi, int cursj, int cursi1, int 
 			else cout << "0";
 		}
 		color(hconsole, 15);
-		cout << " |" << endl;
-		if(i!=9) cout << "|                     |" << endl;
+		printf(" %c\n", 186);
+		if(i!=9) printf("%c                     %c\n", 186, 186);
 	}
-	cout << "+---------------------+" << endl << endl;
+	printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n\n", 200, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 188);
+	cout << "Movimientos: " << movimientos << endl << endl;
 }
 
 void vaciar_tablero(int tablero[10][10])
@@ -80,7 +115,7 @@ void cargar_tablero(int tablero[10][10])
 int main()
 {
 	char tecla, tecla1;
-	int cursi, cursj, cursi1, cursj1, aux, score;
+	int cursi, cursj, cursi1, cursj1, aux, score, movimientos=0;
 	bool flag;
 	
 	srand(time(NULL));
@@ -89,13 +124,11 @@ int main()
 	vaciar_tablero(tablero);
 	cargar_tablero(tablero);
 	
-	confirmacion(tablero, 0, score);
-	
 	while(1)
 	{
 		cursi1 = cursj1 = -1;
 		system("cls");
-		mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1);
+		mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1, movimientos);
 		
 		tecla = getch();
 		
@@ -128,7 +161,7 @@ int main()
 				while(tecla1!=13)
 				{
 					system("cls");
-					mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1);
+					mostrar_tablero(tablero, cursi, cursj, cursi1, cursj1, movimientos);
 				
 					tecla1 = getch();
 				
@@ -136,36 +169,36 @@ int main()
 					{
 						case 72://FLECHA DE ARRIBA
 							if(cursi1==0) cursi1 = 9;
-							else cursi1 --;
+							else if(cursi - 1 != cursi1) cursi1 --;
 							break;
 					
 						case 80://FLECHA DE ABAJO
 							if(cursi1==9) cursi1 = 0;
-							else cursi1 ++;
+							else if(cursi + 1 != cursi1) cursi1 ++;
 							break;
 				
 						case 75://FLECHA DE LA IZQUIERDA
 							if(cursj1==0) cursj1 = 9;
-							else cursj1 --;
+							else if(cursj - 1 != cursj1) cursj1 --;
 							break;
 			
 						case 77://FLECHA DE LA DERECHA
 							if(cursj1==9) cursj1 = 0;
-							else cursj1 ++;
+							else if(cursj + 1 != cursj1) cursj1 ++;
 							break;
 							
 						case 13://ENTER
 							aux = tablero[cursi1][cursj1];
 							tablero[cursi1][cursj1] = tablero[cursi][cursj];
 							tablero[cursi][cursj] = aux;
+							movimientos ++;
 							break;
 					}
 				}
-				
-				break;
-			
-			default:
 				break;
 		}
 	}
 }
+
+
+
