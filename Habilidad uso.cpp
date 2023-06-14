@@ -17,6 +17,7 @@ void UsoHabilidad(int Nivel, int tecla, int fila, int columna, int tablero[10][1
 				x=fila; //Guardamos la posicion de la fila en la que se encuentra en x
 				y=columna; //Guardamos la posicion de la columna en la que se encuentra en y
 				tablero[x][y]=0; //Elimina la ficha que se encuentre en la posicion dada x las variables x e y
+				mov_restantes=10; // Reinicia los movimientos restantes para la proxima habilidad
 				break;
 			case 2:
 				y=columna; //Guardamos la posicion de la columna en la que se encuentra en y
@@ -25,6 +26,7 @@ void UsoHabilidad(int Nivel, int tecla, int fila, int columna, int tablero[10][1
 				{
 					tablero[x][y]=0; //Guarda 0 en la posicion que marca x e y
 				}
+				mov_restantes=10; // Reinicia los movimientos restantes para la proxima habilidad
 				break;
 			case 3:
 				y=columna; //Guardamos la posicion de la columna en la que se encuentra en y
@@ -37,6 +39,7 @@ void UsoHabilidad(int Nivel, int tecla, int fila, int columna, int tablero[10][1
 						tablero[x][y]=0;
 					}
 				}
+				mov_restantes=10; // Reinicia los movimientos restantes para la proxima habilidad
 				break;
 			case 4:
 				x=fila; //Guardamos la posicion de la columna en la que se encuentra en x
@@ -44,6 +47,7 @@ void UsoHabilidad(int Nivel, int tecla, int fila, int columna, int tablero[10][1
 				{
 					tablero[x][y]=0; //Elimina toda la fila en la que se encuentra la ficha seleccionada
 				}
+				mov_restantes=10; // Reinicia los movimientos restantes para la proxima habilidad
 				break;
 			case 5:
 				for(x=fila-1;x<fila+2;x++) // Recorre la fila de arriba, la fila en la que se encuentra la ficha y la fila de abajo
@@ -53,6 +57,7 @@ void UsoHabilidad(int Nivel, int tecla, int fila, int columna, int tablero[10][1
 						tablero[x][y]=0; //Elimina toda la fila en la que se encuentra la ficha seleccionada y la fila de arriba y de abajo
 					}
 				}
+				mov_restantes=10; // Reinicia los movimientos restantes para la proxima habilidad
 				break;
 			case 6:
 				for(x=fila-2;x<fila+3;x++) // Recorre dos filas de arriba, la fila en la que se encuentra la ficha y dos filas de abajo
@@ -62,6 +67,7 @@ void UsoHabilidad(int Nivel, int tecla, int fila, int columna, int tablero[10][1
 						tablero[x][y]=0; //Elimina toda la fila en la que se encuentra la ficha seleccionada, y dos filas superiores y dos inferiores
 					}
 				}
+				mov_restantes=10; // Reinicia los movimientos restantes para la proxima habilidad
 				break;
 			case 7:
 				for(x=0;x<10;x++) //Recorre todas las filas
@@ -71,6 +77,7 @@ void UsoHabilidad(int Nivel, int tecla, int fila, int columna, int tablero[10][1
 						tablero[x][y]=0; //Elimina todo el tablero
 					}
 				}
+				mov_restantes=10; // Reinicia los movimientos restantes para la proxima habilidad
 				break;
 		}
 	}
