@@ -71,6 +71,7 @@ int main()
 		cargar(tablero);
 		cursi1 = cursj1 = -1;
 		system("cls");
+		cout << "ESC = SALIR" << endl;
 		mostrar(tablero, cursi, cursj, cursi1, cursj1, movimientos, score, record);
 		
 		tecla = getch();
@@ -100,6 +101,11 @@ int main()
 				else cursj ++;
 				break;
 			
+			case 27://ESC
+				system("cls");
+				cout << "PUNTAJE FINAL " << score;
+				return 0;
+				
 			case 'r':
 				movimientos = 1;
 				score = 100000;
