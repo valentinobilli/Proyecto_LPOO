@@ -1,0 +1,4 @@
+Hola, les voy a explicar el tema de las habilidades, para activar cualquiera de ellas se activa la 'e':
+mas de 1000 y hasta 3500 puntos = eliminar una ficha/caramelo.
+mas de 3500 y hasta 10000 puntos = eliminar una columna o fila de fichas/caramelos.
+mas de 10000 puntos = eliminar todo el tablero.
