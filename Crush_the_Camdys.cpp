@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void habilidades(int tablero[10][10], int &score, int cursi, int cursj)
+void habilidades(int tablero[10][10], int &score, int cursi, int cursj, COORD coordenadas)
 {
 	char tecla3 = 'f';
 	bool eleccion;
@@ -21,7 +21,7 @@ void habilidades(int tablero[10][10], int &score, int cursi, int cursj)
 		score = score + 10;
 	}else if(score >= 3500 && score < 10000){
 		while(tecla3 != 13){
-			menu_habilidades(eleccion);
+			menu_habilidades(eleccion, coordenadas);
 			tecla3 = getch();
 			
 			switch(tecla3){
@@ -55,11 +55,14 @@ int main()
 	char tecla, tecla1;
 	int cursi, cursj, cursi1, cursj1, aux, score, movimientos=0, record[5];
 	bool flag;
+	COORD coordenadas;
 	
 	srand(time(NULL));
 	
 	int tablero[10][10];
 	vaciar(tablero);
+	
+	cursi = cursj = 0;
 	
 	while(1)
 	{
@@ -71,15 +74,14 @@ int main()
 		cargar(tablero);
 		cursi1 = cursj1 = -1;
 		system("cls");
-		cout << "ESC = SALIR" << endl;
-		mostrar(tablero, cursi, cursj, cursi1, cursj1, movimientos, score, record);
+		mostrar(tablero, cursi, cursj, cursi1, cursj1, movimientos, score, record, coordenadas);
 		
 		tecla = getch();
 		
 		switch(tecla)
 		{
 			case 'e'://Habilidad
-				habilidades(tablero, score, cursi, cursj);
+				habilidades(tablero, score, cursi, cursj, coordenadas);
 				break;
 			case 72://FLECHA DE ABAJO
 				if(cursi==0) cursi = 9;
@@ -108,7 +110,7 @@ int main()
 				
 			case 'r':
 				movimientos = 1;
-				score = 100000;
+				score = 3501;
 				break;
 			
 			case 13://ENTER
@@ -118,7 +120,7 @@ int main()
 				while(tecla1!=13)
 				{
 					system("cls");
-					mostrar(tablero, cursi, cursj, cursi1, cursj1, movimientos, score, record);
+					mostrar(tablero, cursi, cursj, cursi1, cursj1, movimientos, score, record, coordenadas);
 					
 					tecla1 = getch();
 				
