@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <windows.h>
 #define color SetConsoleTextAttribute
+#define posicion SetConsoleCursorPosition
 
 HANDLE hconsole = GetStdHandle( STD_OUTPUT_HANDLE );
 using namespace std;
@@ -16,30 +17,54 @@ void vaciar_logros(int vector[5]){
 	for(int i= 0 ; i<5 ; i++) vector[i] = 0;
 }
 
-void menu_habilidades(int eleccion)
+
+void menu_habilidades(int eleccion, COORD coordenadas)
 {
-	system("cls");
+	coordenadas.X = 2;
+	coordenadas.Y = 2;
+	posicion(hconsole, coordenadas);
 	cout << "+----------------------+" << endl;
 	if(eleccion == 1){
-		cout << "|  Eliminar una fila   |" << endl << "|";
+		
+		coordenadas.X = 2;
+		coordenadas.Y = 3;
+		posicion(hconsole, coordenadas);
+		cout << "|  Eliminar una fila   |" ;
+		coordenadas.X = 2;
+		coordenadas.Y = 4;
+		posicion(hconsole, coordenadas);
+		cout << "|";
 		color(hconsole, 240);
 		cout << " >Eliminar una columna";
 		color(hconsole, 15);
-		cout << "|" << endl;
+		cout << "|";
 	}else{
+		coordenadas.X = 2;
+		coordenadas.Y = 3;
+		posicion(hconsole, coordenadas);
 		cout << "|";
 		color(hconsole, 240);
 		cout << " >Eliminar una fila   ";
 		color(hconsole, 15);
-		cout << "|" << endl << "|  Eliminar una columna|" << endl;
+		cout << "|" ;
+		coordenadas.X = 2;
+		coordenadas.Y = 4;
+		posicion(hconsole, coordenadas);
+		cout << "|  Eliminar una columna|";
 	}
+	coordenadas.X = 2;
+	coordenadas.Y = 5;
+	posicion(hconsole, coordenadas);
 	cout << "+----------------------+" << endl;
 }
 
-void logros(int vector[5], int &score)
+void logros(int vector[5], int &score, COORD coordenadas)
 {
 	int vec2[5];
 	
+	coordenadas.X = 25;
+	coordenadas.Y = 1;
+	posicion(hconsole, coordenadas);
 	if(vector[0] < 5) cout << "Rompe 5 combinaciones de caramelos @\t\t" << vector[0] << "/5" << endl;
 	else if(vector[0]>=5 && vector[0]<10){
 		cout << "Rompe 10 combinaciones de caramelos @\t\t" << vector[0] << "/10" << endl;
@@ -61,6 +86,9 @@ void logros(int vector[5], int &score)
 		}
 	}
 	
+	coordenadas.X = 25;
+	coordenadas.Y = 2;
+	posicion(hconsole, coordenadas);
 	if(vector[1]<5) cout << "Rompe 5 combinaciones de caramelos #\t\t" << vector[1] << "/5" << endl;
 	else if(vector[1]>=5 && vector[1]<10){
 		cout << "Rompe 10 combinaciones de caramelos #\t\t" << vector[1] << "/10" << endl;
@@ -82,6 +110,9 @@ void logros(int vector[5], int &score)
 		}
 	}
 	
+	coordenadas.X = 25;
+	coordenadas.Y = 3;
+	posicion(hconsole, coordenadas);
 	if(vector[2]<5) cout << "Rompe 5 combinaciones de caramelos X\t\t" << vector[2] << "/5" << endl;
 	else if(vector[2]>=5 && vector[2]<10){
 		cout << "Rompe 10 combinaciones de caramelos X\t\t" << vector[2] << "/10" << endl;
@@ -103,6 +134,9 @@ void logros(int vector[5], int &score)
 		}
 	}
 	
+	coordenadas.X = 25;
+	coordenadas.Y = 4;
+	posicion(hconsole, coordenadas);
 	if(vector[3] < 5) cout << "Rompe 5 combinaciones de caramelos H\t\t" << vector[3] << "/5" << endl;
 	else if(vector[3]>=5 && vector[3]<10){
 		cout << "Rompe 10 combinaciones de caramelos H\t\t" << vector[3] << "/10" << endl;
@@ -124,6 +158,9 @@ void logros(int vector[5], int &score)
 		}
 	}
 	
+	coordenadas.X = 25;
+	coordenadas.Y = 5;
+	posicion(hconsole, coordenadas);
 	if(vector[4] < 5) cout << "Rompe 5 combinaciones de caramelos C\t\t" << vector[4] << "/5" << endl;
 	else if(vector[4]>=5 && vector[4]<10){
 		cout << "Rompe 10 combinaciones de caramelos C\t\t" << vector[4] << "/10" << endl;
@@ -225,7 +262,7 @@ void romperCaramelos(int tablero[10][10], int &score, int record[5]) {
 	}
 }
 
-void mostrar(int tablero[10][10], int cursi, int cursj, int cursi1, int cursj1, int movimientos, int &score, int vector[5])
+void mostrar(int tablero[10][10], int cursi, int cursj, int cursi1, int cursj1, int movimientos, int &score, int vector[5], COORD coordenadas)
 {
 	printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n", 201, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 187);
 	for(int i=0; i<10 ; i++)
@@ -252,7 +289,28 @@ void mostrar(int tablero[10][10], int cursi, int cursj, int cursi1, int cursj1, 
 		if(i!=9) printf("%c                     %c\n", 186, 186);
 	}
 	printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n\n", 200, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 188);
-	logros(vector, score);
-	cout << "Movimientos: " << movimientos << endl;
-	cout << "Score: " << score << endl;
+	logros(vector, score, coordenadas);
+	coordenadas.X = 25;
+	coordenadas.Y = 6;
+	posicion(hconsole, coordenadas);
+	cout << "Movimientos: " << movimientos;
+	coordenadas.X = 25;
+	coordenadas.Y = 7;
+	posicion(hconsole, coordenadas);
+	cout << "Score: " << score;
+	coordenadas.X = 25;
+	coordenadas.Y = 8;
+	posicion(hconsole, coordenadas);
+	cout << "ESC = SALIR";
+	coordenadas.X = 25;
+	coordenadas.Y = 8;
+	posicion(hconsole, coordenadas);
+	cout << "E = HABILIDAD";
+	coordenadas.X = 25;
+	coordenadas.Y = 9;
+	posicion(hconsole, coordenadas);
+	cout << "FLECHAS = MOVIMIENTO";
+	coordenadas.X = 0;
+	coordenadas.Y = 0;
+	posicion(hconsole, coordenadas);
 }
