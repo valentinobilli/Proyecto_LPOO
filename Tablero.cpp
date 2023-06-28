@@ -8,17 +8,17 @@
 HANDLE hconsole = GetStdHandle( STD_OUTPUT_HANDLE );
 using namespace std;
 
-int aleatorio()
+int aleatorio()	/*genera un nuemro aleatorio entre 1 y 5*/
 {
 	return (1 + rand() % 5) ;
 }
 
-void vaciar_logros(int vector[5]){
+void vaciar_logros(int vector[5]){	/*vacia todos los logros*/
 	for(int i= 0 ; i<5 ; i++) vector[i] = 0;
 }
 
 
-void menu_habilidades(int eleccion, COORD coordenadas)
+void menu_habilidades(int eleccion, COORD coordenadas)	/*diseño grafico del menu de la habilidad de 3500 puntos*/
 {
 	coordenadas.X = 2;
 	coordenadas.Y = 2;
@@ -58,7 +58,7 @@ void menu_habilidades(int eleccion, COORD coordenadas)
 	cout << "+----------------------+" << endl;
 }
 
-void logros(int vector[5], int &score, COORD coordenadas)
+void logros(int vector[5], int &score, COORD coordenadas)	/*Muestra los logros y tu avance en los mismos*/
 {
 	int vec2[5];
 	
@@ -184,23 +184,23 @@ void logros(int vector[5], int &score, COORD coordenadas)
 }
 
 void cargar(int tablero[10][10])
-{
+{/*Llena toda la matriz de numeros aleatoreos del 1 al 5, que luego seran tomados como fichas, siempre y cuando haya un hueco que valga 0*/
 	for(int i=0; i<10 ; i++)
 	{
 		for(int j=0 ; j<10 ; j++)
 		{
-			if(tablero[i][j] == 0) tablero[i][j] = aleatorio();
+			if(tablero[i][j] == 0) tablero[i][j] = aleatorio();	/*Si el valor de el hueco es 0 se igualara a un numero aleatorio del 1 al 5*/
 		}
 	}
 }
 
-void vaciar(int tablero[10][10])
+void vaciar(int tablero[10][10])	/*vacia todo el taclero*/
 {
 	for(int i=0; i<10 ; i++)
 	{
 		for(int j=0; j<10 ; j++)
 		{
-			tablero[i][j] = 0;
+			tablero[i][j] = 0;	/*Iguala todo el tablero a 0*/
 		}
 	}
 	cargar(tablero);
@@ -208,36 +208,43 @@ void vaciar(int tablero[10][10])
 
 void romperCaramelos(int tablero[10][10], int &score, int record[5]) {
     bool hayRupturas = false, hayRuptura[2] = {true, true};
-    
+    /*	hayRupturas ==>		Flag usada para saber si c rompieron caramelos
+		hayRuptura[2] ==>	un vector de 2 banderas para guardar en que seccion se rompieron caramelos*/
     while(hayRuptura[0] || hayRuptura[1])
     {
     	// Ruptura horizontal
    		for (int i = 0; i < 10; i++) {
         	for (int j = 2; j < 10; j++) {
-            	if (tablero[i][j] == tablero[i][j-1] && tablero[i][j] == tablero[i][j-2]) {
-                	record[tablero[i][j]-1] = record[tablero[i][j]-1] + 1;
+            	if (tablero[i][j] == tablero[i][j-1] && tablero[i][j] == tablero[i][j-2]) {	/*Si hay 3 valores consecutivos iguales*/
+                	record[tablero[i][j]-1] = record[tablero[i][j]-1] + 1;	/*Aumenta el logro respectivo en 1*/
 					tablero[i][j] = 0;
                 	tablero[i][j-1] = 0;
                 	tablero[i][j-2] = 0;
+					/*	Iguala los tres valores del tblero a 0*/
                 	hayRupturas = true;
                 	hayRuptura[0] = true;
+					/*cambia las banderas correspondientes a true*/
                 	score  = score + 30;
-            	}else hayRuptura[0] = false;
+					/*Suma 10 puntos por caramelo roto*/
+            	}else hayRuptura[0] = false;	/*si no se rompieron caramelos durante este ciclo cambia la bandera del mismo a false*/
         	}
     	}
     
     	// Ruptura vertical
     	for (int j = 0; j < 10; j++) {
         	for (int i = 2; i < 10; i++) {
-            	if (tablero[i][j] == tablero[i-1][j] && tablero[i][j] == tablero[i-2][j]) {
-            		record[tablero[i][j]-1] = record[tablero[i][j]-1] + 1;
+            	if (tablero[i][j] == tablero[i-1][j] && tablero[i][j] == tablero[i-2][j]) {	/*Si hay 3 valores consecutivos iguales*/
+            		record[tablero[i][j]-1] = record[tablero[i][j]-1] + 1;/*Aumenta el logro respectivo en 1*/
                 	tablero[i][j] = 0;
                 	tablero[i-1][j] = 0;
                 	tablero[i-2][j] = 0;
+					/*	Iguala los tres valores del tblero a 0*/
                 	hayRupturas = true;
                 	hayRuptura[1] = true;
+					/*cambia las banderas correspondientes a true*/
                 	score = score + 30;
-            	}else hayRuptura[1] = false;
+					/*Suma 10 puntos por caramelo roto*/
+            	}else hayRuptura[1] = false;/*si no se rompieron caramelos durante este ciclo cambia la bandera del mismo a false*/
         	}
     	}
     
