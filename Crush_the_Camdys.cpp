@@ -10,61 +10,85 @@ using namespace std;
 
 void habilidades(int tablero[10][10], int &score, int cursi, int cursj, COORD coordenadas)
 {
-	char tecla3 = 'f';
-	bool eleccion;
+	char tecla3 = 'f';	/*En caso de tener mas de 3500 puntos la habilidad da dos opciones, para seleccionar que opcion se usa esta tecla*/
+	bool eleccion;	/*Esta es la bandera de la seleccion de el tipo de la misma*/
 	
-	if(score < 1000){
+	if(score < 1000){	/*Si el usuario no tiene habilidades disponibles, se imprime el mensaje*/
+		system("cls");	
 		cout << "No hay habilidades disponibles" << endl;
 		system("pause");
-	}else if(score >= 1000 && score < 3500){
-		tablero[cursi][cursj] = 0;
-		score = score + 10;
-	}else if(score >= 3500 && score < 10000){
-		while(tecla3 != 13){
-			menu_habilidades(eleccion, coordenadas);
-			tecla3 = getch();
+	}else if(score >= 1000 && score < 3500){	/*Si el usuario usa la habilidad teniendo mas de 1000 puntos y hasta 3500 puntos*/
+		tablero[cursi][cursj] = 0;	/*Se elimina un caramelo*/
+		score = score + 10;			/*Se le suma 10 puntoas por haber roto un caramelo*/
+	}else if(score >= 3500 && score < 10000){	/*si el usuario tiene mas de 3500 puntos y hasta 10000 puntos*/
+		while(tecla3 != 13){	/*Inicio de ciclo de repeticion de menu de seleccion*/
+			menu_habilidades(eleccion, coordenadas);	/*Situa el menu en unas coordenadas especificas*/
+			tecla3 = getch();		/*le asigna a tecla el caracter apretado en el teclado como un valor en ascii*/
 			
-			switch(tecla3){
-				case 72:
-					if(eleccion == 1) eleccion = 0;
-					else eleccion = 1;
+			switch(tecla3){		/*Compara la tecla apretada con algunos casos*/
+				case 72:	/*En caso de apretar la tecla de "ABAJO"*/
+					if(eleccion == 1) eleccion = 0;	/*Si esta en el maximo posible se camba la eleccion al minimo posible*/
+					else eleccion = 1;	/*Sino se cambia a la maxima posible*/
 					break;
-				case 80:
-					if(eleccion == 0) eleccion = 1;
-					else eleccion = 0;
+				case 80:	/*En caso de apretar la tecla de "ARRIBA"*/
+					if(eleccion == 0) eleccion = 1;	/*Si esta en el menorposible cambia la seleccion al maximo posible*/
+					else eleccion = 0;	/*Sino se cambia a la minimaposible*/
 					break;
 				case 13:
 					if(eleccion == 1){
-						for(int i=0 ; i<10 ; i++){
-							tablero[i][cursj] = 0;
+						for(int i=0 ; i<10 ; i++){	/*En caso de seleccionar "Eliminar toda una fila"*/
+							tablero[i][cursj] = 0;	/*Iguala todos los valores de la fila a 0, para que se reemplazen por caramelos*/
 						}
 					}else{
-						for(int j=0 ; j<10 ; j++){
-							tablero[cursi][j] = 0;
+						for(int j=0 ; j<10 ; j++){  /*En caso de seleccionar "Eliminar toda una columna"*/
+							tablero[cursi][j] = 0;	/*Iguala todos los valores de la columna a 0, para que se reemplazen por caramelos*/
 						}
 					}
-					score = score + 1000;
+					score = score + 100;	/*Te suma 10 por caramelo destruido(10) ==> 10*10 ==> 100*/
 					break;
 			}
 		}
-	}else vaciar(tablero);
+	}else vaciar(tablero);	/*En el caso de que tenga mas de 10000 puntos se elimina todo el tablero*/
 }
 
 int main()
 {
 	char tecla, tecla1;
+	/*
+		tecla ==>	las teclas de primera seleccion de tablero
+		tecla1 ==> 	las teclas de segunda seleccion de tablero
+	*/
 	int cursi, cursj, cursi1, cursj1, aux, score, movimientos=0, record[5];
-	bool flag;
-	COORD coordenadas;
+	/*	
+		cursi ==>	ubicacion de la eleccion 1 en columna
+		cursj ==>	ubicacion de la eleccion 1 en fila
+		cursi1 ==>	ubicacion de la eleccion 2 en columna
+		cursj1 ==>	ubicacion de la eleccion 2 en fila
+		aux ==> 	usado para el intercambio de las fichas luego de la seguna selecion
+		score ==>	acumulador puntos a lo largo del juego
+		movimientos ==>	contador de movimientos
+		record[5] ==> para los logros
+	*/
 	
+	COORD coordenadas;
+	/*	COORD ==> Utilizacion de la  libreria <windows.h> para poder situar dode se requiere un caracter
+		coordenadas ==> para poder usar las posiciones en la windows.h se debe usuar una veriable(que en realidad es una estructura) y
+						se le pasa la variable para la horientacion en x y el valor para la horientacion en y
+						nombre.Y y nombre.X
+	*/
+
 	srand(time(NULL));
+	/*	Creacion de la semilla para lso numeros random*/
 	
 	int tablero[10][10];
-	vaciar(tablero);
+	/*	tablero[10][10] ==> Creacion del tablero*/
+
+	vaciar(tablero);	/*se le envia a la funcion "vaciar" la matriz tablero*/
 	
 	cursi = cursj = 0;
+	/*Iguala los cursores i y j a 0 para que comineze la seleccion de el primer movimento empieze de la primera casilla*/
 	
-	while(1)
+	while(1)	/*Inicio del juego*/
 	{
 		romperCaramelos(tablero, score, record);
 		if(movimientos == 0){
