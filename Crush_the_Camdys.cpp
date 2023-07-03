@@ -7,7 +7,7 @@
 #include <windows.h>
 
 using namespace std;
-
+/* editando el código */
 void habilidades(int tablero[10][10], int &score, int cursi, int cursj, COORD coordenadas)
 {
 	char tecla3 = 'f';	/*En caso de tener mas de 3500 puntos la habilidad da dos opciones, para seleccionar que opcion se usa esta tecla*/
