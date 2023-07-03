@@ -104,6 +104,7 @@ int main()
 		
 		switch(tecla)
 		{
+			case 'E':
 			case 'e'://Habilidad
 				habilidades(tablero, score, cursi, cursj, coordenadas);
 				break;
@@ -131,7 +132,7 @@ int main()
 				system("cls");
 				cout << "PUNTAJE FINAL " << score;
 				return 0;
-				
+			case 'R':
 			case 'r':
 				movimientos = 1;
 				score = 3501;
