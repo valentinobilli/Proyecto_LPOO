@@ -19,7 +19,7 @@ void habilidades(int tablero[10][10], int &score, int cursi, int cursj, COORD co
 		system("pause");
 	}else if(score >= 1000 && score < 3500){	/*Si el usuario usa la habilidad teniendo mas de 1000 puntos y hasta 3500 puntos*/
 		tablero[cursi][cursj] = 0;	/*Se elimina un caramelo*/
-		score = score + 10;			/*Se le suma 10 puntoas por haber roto un caramelo*/
+		score = score - 10;			/*Se le suma 10 puntoas por haber roto un caramelo*/
 	}else if(score >= 3500 && score < 10000){	/*si el usuario tiene mas de 3500 puntos y hasta 10000 puntos*/
 		while(tecla3 != 13){	/*Inicio de ciclo de repeticion de menu de seleccion*/
 			menu_habilidades(eleccion, coordenadas);	/*Situa el menu en unas coordenadas especificas*/
@@ -44,7 +44,7 @@ void habilidades(int tablero[10][10], int &score, int cursi, int cursj, COORD co
 							tablero[cursi][j] = 0;	/*Iguala todos los valores de la columna a 0, para que se reemplazen por caramelos*/
 						}
 					}
-					score = score + 100;	/*Te suma 10 por caramelo destruido(10) ==> 10*10 ==> 100*/
+					score = score - 100;	/*Te suma 10 por caramelo destruido(10) ==> 10*10 ==> 100*/
 					break;
 			}
 		}
